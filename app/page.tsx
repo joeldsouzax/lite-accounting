@@ -1,10 +1,9 @@
 import ThemeSelector from '@/components/ThemeSelector';
-import { BsFillSunFill, BsFillMoonFill } from 'react-icons/bs';
 
 export default function Home() {
   return (
     <main className="flex flex-col justify-center items-center w-full">
-      <header className="navbar shadow-md">
+      <header className="max-w-xs w-full navbar lg:max-w-lg transition-all ease-out duration-75">
         <nav className="navbar-start">liteRengskap</nav>
         <nav className="navbar-end">
           <ThemeSelector />
