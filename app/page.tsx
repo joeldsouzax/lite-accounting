@@ -1,5 +1,6 @@
 import Logo from '@/components/Logo';
 import ThemeSelector from '@/components/ThemeSelector';
+import { Suspense } from 'react';
 
 export default function Home() {
   return (

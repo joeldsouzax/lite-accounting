@@ -10,8 +10,8 @@ const config: Config = {
     extend: {},
   },
   daisyui: {
-    themes: ['business', 'emerald'],
-    darkTheme: 'business',
+    themes: ['dark', 'emerald'],
+    darkTheme: 'dark',
   },
   plugins: [require('daisyui')],
 };
