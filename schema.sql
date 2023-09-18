@@ -32,15 +32,3 @@ create trigger on_auth_user_created
     after insert on auth.users
     for each row execute procedure public.handle_new_user();
 
-
-/**
-* CUSTOMERS
-* Note: this is a private table that contains a mapping of user IDs to Stripe customer IDs
-*/
-create table customers(
-    -- UUID from auth.users
-    id uuid references auth.users not null primary key,
-    string_customer_id text
-);
-alter table customers enable row level security;
--- No policies specified as this is going to be a private table that users cannot access
