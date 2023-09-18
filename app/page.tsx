@@ -1,10 +1,13 @@
+import Logo from '@/components/Logo';
 import ThemeSelector from '@/components/ThemeSelector';
 
 export default function Home() {
   return (
     <main className="flex flex-col justify-center gap-2 items-center w-full md:gap-4 transition-all ease-out duration-100">
       <header className="max-w-xs w-full navbar lg:max-w-lg transition-all ease-out duration-100">
-        <nav className="navbar-start">liteRengskap</nav>
+        <nav className="navbar-start">
+          <Logo />
+        </nav>
         <nav className="navbar-end flex gap-4">
           <ThemeSelector />
           <a className="link link-hover text-xl" href="/sign-in">
