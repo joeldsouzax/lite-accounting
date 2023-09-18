@@ -31,6 +31,7 @@
   },
   "devDependencies": {
     "daisyui": "^3.7.5",
-    "prettier": "^3.0.3"
+    "prettier": "^3.0.3",
+    "supabase": "^1.93.0"
   }
 }
