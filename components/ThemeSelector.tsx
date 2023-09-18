@@ -22,8 +22,8 @@ const ThemeSelector: React.FC = () => {
     <label className="swap swap-rotate">
       <input
         type="checkbox"
-        value={currentTheme == 'business' ? 'emerald' : 'business'}
-        checked={currentTheme === 'business' ? true : false}
+        value={currentTheme == 'dark' ? 'emerald' : 'dark'}
+        checked={currentTheme === 'dark' ? true : false}
         onChange={(e) => {
           setTheme(e.currentTarget.value);
         }}
