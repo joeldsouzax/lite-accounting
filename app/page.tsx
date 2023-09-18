@@ -23,28 +23,6 @@ export default function Home() {
         </div>
       </div>
       <div className="divider" />
-      <div className="card w-full max-w-xs lg:max-w-lg transition-all ease-out duration-100 shadow-xl">
-        <div className="card-body">
-          <form className="flex flex-col gap-2 w-full">
-            <input
-              placeholder="you@example.com"
-              type="email"
-              name="email"
-              id="email"
-              className="input input-md input-primary"
-            />
-            <input
-              placeholder="********"
-              type="password"
-              name="password"
-              id="password"
-              className="input input-md input-primary"
-            />
-            <button className="btn btn-primary btn-sm">Sign in</button>
-            <button className="btn btn-secondary btn-sm">Sign up</button>
-          </form>
-        </div>
-      </div>
     </main>
   );
 }
