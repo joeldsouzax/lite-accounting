@@ -7,7 +7,9 @@ export default function Home() {
         <nav className="navbar-start">liteRengskap</nav>
         <nav className="navbar-end flex gap-4">
           <ThemeSelector />
-          <a href="/sign-in">Sign in</a>
+          <a className="link link-hover text-xl" href="/sign-in">
+            Sign in
+          </a>
         </nav>
       </header>
       <div className="hero max-w-xs w-full lg:max-w-lg transition-all ease-out duration-100">

@@ -1,3 +1,7 @@
 export default async function SignIn() {
-  return <section>signin</section>;
+  return (
+    <main className="flex flex-col justify-center items-center w-full">
+      Sign in
+    </main>
+  );
 }
