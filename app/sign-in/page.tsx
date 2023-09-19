@@ -4,6 +4,8 @@ import { getSession } from '../supabase-server';
 import { redirect } from 'next/navigation';
 import Auth from '@/components/Auth';
 
+export const dynamic = 'force-dynamic';
+
 export default async function SignIn() {
   const session = await getSession();
 
