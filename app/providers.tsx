@@ -2,11 +2,48 @@
 
 import * as React from 'react';
 import { ThemeProvider } from 'next-themes';
+import type { SupabaseClient } from '@supabase/supabase-js';
+import { Database } from '@/database.types';
+import { createPagesBrowserClient } from '@supabase/auth-helpers-nextjs';
+import { useRouter } from 'next/navigation';
+
+type SupabaseContext = {
+  supabase: SupabaseClient<Database>;
+};
+
+const Context = React.createContext<SupabaseContext | undefined>(undefined);
 
 interface ProviderProps extends React.PropsWithChildren {}
-
 const Providers: React.FC<ProviderProps> = ({ children }) => {
-  return <ThemeProvider themes={['dark', 'emerald']}>{children}</ThemeProvider>;
+  const [supabase] = React.useState(() => createPagesBrowserClient());
+  const router = useRouter();
+
+  React.useEffect(() => {
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event) => {
+      if (event === 'SIGNED_IN') router.refresh();
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, [router, supabase]);
+
+  return (
+    <Context.Provider value={{ supabase }}>
+      <ThemeProvider themes={['dark', 'emerald']}>{children}</ThemeProvider>
+    </Context.Provider>
+  );
 };
 
 export default Providers;
+
+export const useSupabase = () => {
+  const context = React.useContext(Context);
+  if (context === undefined) {
+    throw new Error('useSupabase must be inside Provider');
+  }
+
+  return context;
+};
