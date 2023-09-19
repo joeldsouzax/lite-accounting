@@ -14,6 +14,16 @@ import * as React from 'react';
 
 const Auth: React.FC = () => {
   const { supabase } = useSupabase();
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
+
   return (
     <AuthUI
       supabaseClient={supabase}
