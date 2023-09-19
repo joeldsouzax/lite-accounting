@@ -7,11 +7,13 @@ export default function Home() {
     <main className="flex flex-col justify-center gap-2 items-center w-full md:gap-4 transition-all ease-out duration-100">
       <header className="max-w-xs w-full navbar lg:max-w-lg transition-all ease-out duration-100">
         <nav className="navbar-start">
-          <Logo />
+          <a href="/">
+            <Logo />
+          </a>
         </nav>
         <nav className="navbar-end flex gap-4">
           <ThemeSelector />
-          <a className="link link-hover text-xl" href="/sign-in">
+          <a className="link link-hover" href="/sign-in">
             Sign in
           </a>
         </nav>
