@@ -6,36 +6,34 @@
  *
  * Copyright (c) 2023 Your Company
  */
-
+'use client';
 import { useSupabase } from '@/app/providers';
 import { Auth as AuthUI } from '@supabase/auth-ui-react';
 import { getURL } from 'next/dist/shared/lib/utils';
 import * as React from 'react';
-import { ThemeSupa } from '@supabase/auth-ui-shared';
 
 const Auth: React.FC = () => {
   const { supabase } = useSupabase();
   return (
-    <div className="flex flex-col space-y-4">
-      <AuthUI
-        supabaseClient={supabase}
-        providers={['google', 'apple', 'linkedin', 'azure', 'facebook']}
-        redirectTo={`${getURL()}/auth/callback`}
-        magicLink={true}
-        appearance={{
-          theme: ThemeSupa,
-          variables: {
-            default: {
-              colors: {
-                brand: '#404040',
-                brandAccent: '#52525b',
-              },
-            },
-          },
-        }}
-        theme="dark"
-      />
-    </div>
+    <AuthUI
+      supabaseClient={supabase}
+      providers={['google']}
+      redirectTo={`${getURL()}/auth/callback`}
+      magicLink={true}
+      appearance={{
+        extend: false,
+        className: {
+          button: 'btn btn-neutral w-full',
+          divider: 'divider',
+          label: 'label',
+          container: 'flex flex-col items-center w-full gap-2',
+          anchor: 'link text-sm',
+          input: 'input',
+          message: 'alert alert-error',
+          loader: 'loading loading-ring loading-lg',
+        },
+      }}
+    />
   );
 };
 
