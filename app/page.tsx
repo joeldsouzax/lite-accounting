@@ -1,7 +1,3 @@
-import Logo from '@/components/Logo';
-import ThemeSelector from '@/components/ThemeSelector';
-import { Suspense } from 'react';
-
 export default function Home() {
   return (
     <main id="lite-regnskap-landing px-4 md:px-0">

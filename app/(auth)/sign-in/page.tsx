@@ -1,5 +1,11 @@
-import Logo from '@/components/Logo';
-import ThemeSelector from '@/components/ThemeSelector';
+/*
+ * Filename: /Users/joel/Code/start-up/lite-accounting/app/(auth)/sign-in/page.tsx
+ * Path: /Users/joel/Code/start-up/lite-accounting
+ * Created Date: Monday, September 18th 2023, 9:12:12 pm
+ * Author: Joel Dsouza
+ *
+ * Copyright (c) 2023 Your Company
+ */
 import { getSession } from '../../supabase-server';
 import { redirect } from 'next/navigation';
 import Auth from '@/components/Auth';
