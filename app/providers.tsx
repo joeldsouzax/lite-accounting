@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 
 type SupabaseContext = {
   supabase: SupabaseClient<Database>;
+  isLoading: boolean;
 };
 
 const Context = React.createContext<SupabaseContext | undefined>(undefined);
@@ -16,12 +17,14 @@ const Context = React.createContext<SupabaseContext | undefined>(undefined);
 interface ProviderProps extends React.PropsWithChildren {}
 const Providers: React.FC<ProviderProps> = ({ children }) => {
   const [supabase] = React.useState(() => createPagesBrowserClient());
+  const [isLoading, setIsLoading] = React.useState(true);
   const router = useRouter();
 
   React.useEffect(() => {
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((event) => {
+      setIsLoading(false);
       if (event === 'SIGNED_IN') router.refresh();
     });
 
@@ -31,7 +34,7 @@ const Providers: React.FC<ProviderProps> = ({ children }) => {
   }, [router, supabase]);
 
   return (
-    <Context.Provider value={{ supabase }}>
+    <Context.Provider value={{ supabase, isLoading }}>
       <ThemeProvider themes={['dark', 'emerald']}>{children}</ThemeProvider>
     </Context.Provider>
   );
