@@ -14,15 +14,6 @@ import * as React from 'react';
 
 const Auth: React.FC = () => {
   const { supabase } = useSupabase();
-  const [mounted, setMounted] = React.useState(false);
-
-  React.useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    return null;
-  }
 
   return (
     <AuthUI
@@ -41,12 +32,12 @@ const Auth: React.FC = () => {
       appearance={{
         extend: false,
         className: {
-          button: 'btn btn-neutral w-full',
-          divider: 'divider',
-          label: 'label',
-          container: 'flex flex-col items-center w-full gap-2',
-          anchor: 'link text-sm',
-          input: 'input input-bordered',
+          button: 'btn btn-neutral w-full md:btn-sm',
+          divider: 'divider mb-1',
+          container: 'flex flex-col gap-4 md:gap-2 justify-center',
+          label: 'label md:text-sm',
+          anchor: 'link text-sm self-center',
+          input: 'input input-bordered md:input-sm w-full',
           message: 'alert alert-error',
           loader: 'loading loading-ring loading-lg',
         },

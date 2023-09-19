@@ -8,6 +8,9 @@ const config: Config = {
   ],
   theme: {
     extend: {},
+    container: {
+      center: true,
+    },
   },
   daisyui: {
     themes: ['dark', 'emerald'],
