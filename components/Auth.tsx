@@ -20,6 +20,14 @@ const Auth: React.FC = () => {
       providers={['google']}
       redirectTo={`${getURL()}/auth/callback`}
       magicLink={true}
+      localization={{
+        variables: {
+          sign_in: {
+            email_input_placeholder: 'you@example.com',
+            password_input_placeholder: '********',
+          },
+        },
+      }}
       appearance={{
         extend: false,
         className: {
@@ -28,7 +36,7 @@ const Auth: React.FC = () => {
           label: 'label',
           container: 'flex flex-col items-center w-full gap-2',
           anchor: 'link text-sm',
-          input: 'input',
+          input: 'input input-bordered',
           message: 'alert alert-error',
           loader: 'loading loading-ring loading-lg',
         },
