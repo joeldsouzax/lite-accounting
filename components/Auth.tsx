@@ -23,10 +23,11 @@ const Auth: React.FC = () => {
         </div>
       ) : (
         <AuthUI
+          showLinks={false}
           supabaseClient={supabase}
           providers={['google']}
           redirectTo={`${getURL()}/auth/callback`}
-          magicLink={true}
+          magicLink={false}
           localization={{
             variables: {
               sign_in: {
