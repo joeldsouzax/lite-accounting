@@ -2,8 +2,8 @@ import { createServerSupabaseClient } from '@/app/supabase-server';
 import Link from 'next/link';
 import * as React from 'react';
 import SignOut from './SignOut';
-import { cookies } from 'next/headers';
 
+export const dynamic = 'force-dynamic';
 export default async function Authentication() {
   const supabase = createServerSupabaseClient();
   const { data: user } = await supabase.auth.getUser();
