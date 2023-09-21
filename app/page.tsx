@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 export default function Home() {
   return (
     <main id="lite-regnskap-landing px-4 md:px-0">
