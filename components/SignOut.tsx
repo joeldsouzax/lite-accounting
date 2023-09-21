@@ -11,7 +11,7 @@ export default function SignOut() {
     router.refresh();
   };
   return (
-    <button className="btn btn-ghost btn-sm" onClick={handleSignOut}>
+    <button className="btn" onClick={handleSignOut}>
       Sign out
     </button>
   );
