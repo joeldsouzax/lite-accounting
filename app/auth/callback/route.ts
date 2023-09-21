@@ -22,5 +22,5 @@ export async function GET(req: NextRequest) {
   }
 
   // URL to redirect to after signin process is complete
-  return NextResponse.redirect(requestUrl.origin);
+  return NextResponse.redirect(`${requestUrl.origin}/account`);
 }

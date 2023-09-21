@@ -23,6 +23,7 @@ const Auth: React.FC = () => {
         </div>
       ) : (
         <AuthUI
+          onlyThirdPartyProviders
           showLinks={false}
           supabaseClient={supabase}
           providers={['google']}
