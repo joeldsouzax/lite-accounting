@@ -5,6 +5,7 @@ import Providers from './providers';
 import Logo from '@/components/Logo';
 import ThemeSelector from '@/components/ThemeSelector';
 import Footer from '@/components/Footer';
+import Authentication from '@/components/Authentication';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -36,9 +37,7 @@ export default function RootLayout({
               </nav>
               <nav className="navbar-end flex gap-4">
                 <ThemeSelector />
-                <a className="link link-hover" href="/sign-in">
-                  Sign in
-                </a>
+                <Authentication />
               </nav>
             </header>
           </div>
