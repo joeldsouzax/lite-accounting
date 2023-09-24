@@ -1,8 +1,10 @@
+import Link from 'next/link';
+
 export const dynamic = 'force-dynamic';
 
 export default function Home() {
   return (
-    <main id="lite-regnskap-landing px-4 md:px-0">
+    <main id="lite-regnskap-landing px-4 md:px-2">
       <section id="hero-section">
         <div className="hero">
           <div className="hero-content text-center">
@@ -13,7 +15,9 @@ export default function Home() {
                 assumenda excepturi exercitationem quasi. In deleniti eaque aut
                 repudiandae et a id nisi.
               </p>
-              <button className="btn btn-primary">Get Started</button>
+              <Link className="btn btn-primary" href={'/home'}>
+                Get Started
+              </Link>
             </div>
           </div>
         </div>

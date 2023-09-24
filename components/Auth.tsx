@@ -9,7 +9,7 @@
 'use client';
 import { useSupabase } from '@/app/providers';
 import { Auth as AuthUI } from '@supabase/auth-ui-react';
-import { getURL } from 'next/dist/shared/lib/utils';
+import { getURL } from '@/utils/helpers';
 import * as React from 'react';
 
 const Auth: React.FC = () => {
@@ -27,7 +27,7 @@ const Auth: React.FC = () => {
           showLinks={false}
           supabaseClient={supabase}
           providers={['google']}
-          redirectTo={`${getURL()}/home/`}
+          redirectTo={`${getURL()}auth/callback`}
           magicLink={false}
           localization={{
             variables: {

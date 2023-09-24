@@ -19,3 +19,17 @@ export async function getSession() {
     return null;
   }
 }
+
+export async function getUserDetails() {
+  const supabase = createServerSupabaseClient();
+  try {
+    const { data: userDetail } = await supabase
+      .from('user')
+      .select('*')
+      .single();
+    return userDetail;
+  } catch (err) {
+    console.log('error : ', err);
+    return null;
+  }
+}
