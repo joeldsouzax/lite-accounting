@@ -6,7 +6,7 @@
  *
  * Copyright (c) 2023 Your Company
  */
-import { getSession } from '../../supabase-server';
+import { getSession } from '../supabase-server';
 import { redirect } from 'next/navigation';
 import Auth from '@/components/Auth';
 
@@ -16,7 +16,7 @@ export default async function SignIn() {
   const session = await getSession();
 
   if (session) {
-    return redirect('/account');
+    return redirect('/home');
   }
   return (
     <main className="container md:max-w-xs px-4 md:px-0">

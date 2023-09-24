@@ -16,11 +16,13 @@ export async function GET(req: NextRequest) {
   const requestUrl = new URL(req.url);
   const code = requestUrl.searchParams.get('code');
 
+  console.log(requestUrl);
+
   if (code) {
     const supabase = createRouteHandlerClient<Database>({ cookies });
     await supabase.auth.exchangeCodeForSession(code);
   }
 
   // URL to redirect to after signin process is complete
-  return NextResponse.redirect(`${requestUrl.origin}/account`);
+  return NextResponse.redirect(requestUrl.origin);
 }

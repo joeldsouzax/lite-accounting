@@ -27,7 +27,7 @@ const Auth: React.FC = () => {
           showLinks={false}
           supabaseClient={supabase}
           providers={['google']}
-          redirectTo={`${getURL()}/auth/callback`}
+          redirectTo={`${getURL()}/home/`}
           magicLink={false}
           localization={{
             variables: {
