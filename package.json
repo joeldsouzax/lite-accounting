@@ -38,6 +38,7 @@
     "cypress": "^13.2.0",
     "daisyui": "^3.7.5",
     "prettier": "^3.0.3",
+    "start-server-and-test": "^2.0.1",
     "supabase": "^1.93.0"
   }
 }
