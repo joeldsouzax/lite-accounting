@@ -2,6 +2,7 @@
 
 import { useSupabase } from '@/app/providers';
 import { useRouter } from 'next/navigation';
+import { AiOutlineLogout } from 'react-icons/ai';
 
 export default function SignOut() {
   const router = useRouter();
@@ -11,7 +12,8 @@ export default function SignOut() {
     router.refresh();
   };
   return (
-    <button className="btn btn-sm btn-ghost" onClick={handleSignOut}>
+    <button onClick={handleSignOut}>
+      <AiOutlineLogout />
       Sign out
     </button>
   );

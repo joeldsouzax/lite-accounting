@@ -42,3 +42,6 @@ Domain
 
 
 
+TODO:
+- add component based tests
+- refactor based on component tests
