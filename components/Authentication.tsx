@@ -3,7 +3,7 @@ import Link from 'next/link';
 import * as React from 'react';
 import SignOut from './SignOut';
 import Image from 'next/image';
-import { FiSettings } from 'react-icons/fi';
+import { FiSettings, FiHome } from 'react-icons/fi';
 
 export default async function Authentication() {
   const supabase = createServerSupabaseClient();
@@ -27,6 +27,12 @@ export default async function Authentication() {
             tabIndex={0}
             className="menu menu-lg lg:menu-sm transition-all ease-linear duration-100 dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
           >
+            <li>
+              <Link href={'/home'}>
+                <FiHome />
+                Home
+              </Link>
+            </li>
             <li>
               <Link href={'/home/settings'}>
                 <FiSettings />
