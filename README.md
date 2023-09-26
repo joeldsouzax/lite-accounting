@@ -34,10 +34,11 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
 
-// TODO: add supabase middleware
-// TODO: add supabase signin callback
+Domain
 
-// TODO: add signin with google
-// TODO: add signin with facebook
-// TODO: add signin with microsoft
-// TODO: add signin with apple
+- Account => Company (can be more than 1)
+- Transaction
+- General Ledger
+
+
+
