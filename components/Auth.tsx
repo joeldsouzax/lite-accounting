@@ -18,7 +18,9 @@ const Auth: React.FC = () => {
   return (
     <>
       {isLoading ? (
-        <span className="loading loading-dots loading-lg align-middle"></span>
+        <div className="w-full flex flex-col items-center">
+          <span className="loading loading-dots loading-lg align-middle"></span>
+        </div>
       ) : (
         <AuthUI
           onlyThirdPartyProviders

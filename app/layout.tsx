@@ -28,7 +28,7 @@ export default function RootLayout({
     >
       <body className={inter.className}>
         <Providers>
-          <div className="px-2 md:px-0 transition-all ease-linear duration-200 shadow-md mb-4">
+          <div className="px-2 md:px-0 transition-all ease-linear duration-200 shadow-md">
             <header className="navbar container md:max-w-md">
               <nav className="navbar-start">
                 <a href="/">

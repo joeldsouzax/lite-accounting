@@ -8,7 +8,7 @@ const Footer: React.FC = () => {
   const copyrightName = COMPANY_NAME || SITE_NAME || '';
 
   return (
-    <footer className="footer footer-center p-4 text-base-content">
+    <footer className="footer footer-center py-4 text-base-content">
       <aside>
         <p>
           &copy; {copyrightDate} {copyrightName}
