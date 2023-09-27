@@ -24,7 +24,7 @@ export async function getUserDetails() {
   const supabase = createServerSupabaseClient();
   try {
     const { data: userDetail } = await supabase
-      .from('user')
+      .from('users')
       .select('*')
       .single();
     return userDetail;

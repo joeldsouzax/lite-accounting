@@ -42,6 +42,7 @@ export default function RootLayout({
             </header>
           </div>
           {children}
+          <div className="divider" />
           <Footer />
         </Providers>
       </body>

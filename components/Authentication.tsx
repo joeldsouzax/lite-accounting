@@ -5,6 +5,7 @@ import SignOut from './SignOut';
 import Image from 'next/image';
 import { FiSettings, FiHome } from 'react-icons/fi';
 
+//TODO: highlight the menu option when you are on that path
 export default async function Authentication() {
   const supabase = createServerSupabaseClient();
   const { data: user } = await supabase.auth.getUser();
