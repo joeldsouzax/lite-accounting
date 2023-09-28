@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
+import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
 
 /**
  * @swagger
@@ -10,6 +12,7 @@ import { NextRequest, NextResponse } from 'next/server';
  *              description: "Successfull"
  */
 export const DELETE = async (req: NextRequest, context: any) => {
-  console.log(context);
+  const requestUrl = new URL(req.url);
+  const supabase = await createRouteHandlerClient({ cookies });
   return new NextResponse('Successfull', { status: 200 });
 };
