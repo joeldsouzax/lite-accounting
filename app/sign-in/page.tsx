@@ -19,7 +19,7 @@ export default async function SignIn() {
     return redirect('/home');
   }
   return (
-    <main className="container md:max-w-xs px-4 md:px-0 h-96 flex flex-col just items-center">
+    <main className="container md:max-w-xs px-4 md:px-0 flex flex-col just items-center">
       <section className="m-auto w-full justify-center">
         <Auth />
       </section>

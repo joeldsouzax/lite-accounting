@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
+import { Database } from '@/database.types';
 
 /**
  * @swagger
@@ -13,6 +14,19 @@ import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
  */
 export const DELETE = async (req: NextRequest, context: any) => {
   const requestUrl = new URL(req.url);
-  const supabase = await createRouteHandlerClient({ cookies });
+
+  // get supabase client
+  const supabase = await createRouteHandlerClient<Database>({ cookies });
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  const user = session?.user;
+
+  console.log(user);
+
+  const { error } = await supabase.from('users').delete().eq('id', '');
+
   return new NextResponse('Successfull', { status: 200 });
 };

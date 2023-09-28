@@ -1,20 +1,13 @@
-// TODO: get user info
-
-import { getUserDetails } from '@/app/supabase-server';
-
 // TODO: delete account option
+// TODO: delete can be a server action for now
 export default async function Settings() {
-  const userDetail = await getUserDetails();
-
   return (
     <>
       <section
         id="user-settings"
         className="px-4 md:px-2 container md:max-w-md mb-4 md:mb-6 transition-all ease-linear duration-100"
       >
-        <article className="prose">
-          <h2>{userDetail.full_name}</h2>
-        </article>
+        <article className="prose"></article>
       </section>
       <section
         className="px-4 md:px-2 container md:max-w-md"
@@ -27,7 +20,7 @@ export default async function Settings() {
               Once you delete your account, there is no going back. Please be
               certain.
             </p>
-            <button className="btn btn-error  btn-outline btn-sm">
+            <button className="btn btn-error btn-outline btn-sm" type="submit">
               Delete your Account
             </button>
           </div>
