@@ -2,6 +2,7 @@ import { Database } from '@/database.types';
 import {
   createServerActionClient,
   createServerComponentClient,
+  createRouteHandlerClient,
 } from '@supabase/auth-helpers-nextjs';
 import { cache } from 'react';
 import { cookies } from 'next/headers';
@@ -12,6 +13,10 @@ export const createServerSupabaseClient = cache(() =>
 
 export const createActionSupabaseClient = cache(() =>
   createServerActionClient<Database>({ cookies })
+);
+
+export const createRouteSupabaseClient = cache(() =>
+  createRouteHandlerClient<Database>({ cookies })
 );
 
 export async function getSession() {
