@@ -8,10 +8,7 @@
  */
 
 'use server';
-
 import { createActionSupabaseClient } from '@/app/supabase-server';
-export const dynamic = 'force-dynamic';
-
 export async function deleteUser() {
   const supabase = createActionSupabaseClient();
 
