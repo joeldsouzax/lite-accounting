@@ -1,0 +1,1 @@
+create policy "Can delete its own data" on users for delete using (auth.uid() = id);

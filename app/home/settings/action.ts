@@ -10,6 +10,7 @@
 'use server';
 import { createActionSupabaseClient } from '@/app/supabase-server';
 import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
 
 export async function deleteUser() {
   const supabase = createActionSupabaseClient();
@@ -24,10 +25,11 @@ export async function deleteUser() {
         .delete()
         .eq('id', user.id);
 
-      console.log(error);
-      return revalidatePath('/');
+      await supabase.auth.signOut();
     }
   } catch (e) {
     return { message: 'Failed to delete' };
   }
+  revalidatePath('/home/settings');
+  redirect('/');
 }
