@@ -20,7 +20,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <div className="divider" />
     </main>
   );
 }
