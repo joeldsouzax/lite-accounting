@@ -9,14 +9,35 @@
 
 'use client';
 
-import { FC } from 'react';
 import { deleteUser } from './action';
 
-/**
- * its a web app only feature, user have to login to their web app to delete themselves
- * @returns
- */
-const DeleteUser: FC = () => {
+import {
+  //@ts-ignore
+  experimental_useFormState as useFormState,
+  experimental_useFormStatus as useFormStatus,
+} from 'react-dom';
+
+const initialState = {
+  message: null,
+};
+
+function DeleteButton() {
+  const { pending } = useFormStatus();
+
+  return (
+    <button
+      type="submit"
+      aria-disabled={pending}
+      className="btn btn-error btn-outline btn-sm w-full"
+    >
+      Delete your Account
+    </button>
+  );
+}
+
+export default function DeleteAccount() {
+  const [state, formAction] = useFormState(deleteUser, initialState);
+
   return (
     <div id="account-delete-card" className="card shadow-md">
       <div className="card-body">
@@ -25,17 +46,13 @@ const DeleteUser: FC = () => {
           Once you delete your account, there is no going back. Please be
           certain.
         </p>
-        <form className="w-full" action={deleteUser}>
-          <button
-            className="btn btn-error btn-outline btn-sm w-full"
-            type="submit"
-          >
-            Delete your Account
-          </button>
+        <form className="w-full" action={formAction}>
+          <DeleteButton />
         </form>
       </div>
+      <p aria-live="polite" className="sr-only">
+        {state?.message}
+      </p>
     </div>
   );
-};
-
-export default DeleteUser;
+}

@@ -12,6 +12,7 @@ import { Database } from '@/database.types';
  *          200:
  *              description: "Successfull"
  */
+
 export const DELETE = async (req: NextRequest, context: any) => {
   const requestUrl = new URL(req.url);
 

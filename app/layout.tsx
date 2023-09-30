@@ -14,7 +14,8 @@ export const metadata: Metadata = {
   description: 'LiteRegnskap',
 };
 
-export default function RootLayout({
+export const dynamic = 'force-dynamic';
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;

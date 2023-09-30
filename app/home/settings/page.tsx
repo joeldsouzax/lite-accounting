@@ -8,7 +8,7 @@
  */
 
 // TODO: delete account option
-import DeleteUser from './delete-user';
+import DeleteAccount from './delete-user';
 
 export const dynamic = 'force-dynamic';
 export default async function Settings() {
@@ -24,7 +24,7 @@ export default async function Settings() {
         className="px-4 md:px-2 container md:max-w-md"
         id="important-account-settings"
       >
-        <DeleteUser />
+        <DeleteAccount />
       </section>
     </>
   );

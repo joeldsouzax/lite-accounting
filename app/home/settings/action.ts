@@ -9,17 +9,25 @@
 
 'use server';
 import { createActionSupabaseClient } from '@/app/supabase-server';
+import { revalidatePath } from 'next/cache';
+
 export async function deleteUser() {
   const supabase = createActionSupabaseClient();
+  try {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+    if (user && user.id) {
+      const { data, error } = await supabase
+        .from('users')
+        .delete()
+        .eq('id', user.id);
 
-  if (user && user.id) {
-    const { data, error } = await supabase
-      .from('users')
-      .delete()
-      .eq('id', user.id);
+      console.log(error);
+      return revalidatePath('/');
+    }
+  } catch (e) {
+    return { message: 'Failed to delete' };
   }
 }
