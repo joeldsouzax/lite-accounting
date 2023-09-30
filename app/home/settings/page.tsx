@@ -2,7 +2,8 @@
 
 import DeleteUser from './delete-user';
 
-// TODO: delete can be a server action for now
+export const dynamic = 'force-dynamic';
+// TODO: add a modal before executing the delete option
 export default async function Settings() {
   return (
     <>
