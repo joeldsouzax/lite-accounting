@@ -27,6 +27,7 @@ function DeleteButton() {
   return (
     <button
       type="submit"
+      disabled={pending}
       aria-disabled={pending}
       className="btn btn-error btn-outline btn-sm w-full"
     >
