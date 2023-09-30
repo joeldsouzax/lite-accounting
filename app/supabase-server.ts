@@ -1,10 +1,17 @@
 import { Database } from '@/database.types';
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import {
+  createServerActionClient,
+  createServerComponentClient,
+} from '@supabase/auth-helpers-nextjs';
 import { cache } from 'react';
 import { cookies } from 'next/headers';
 
 export const createServerSupabaseClient = cache(() =>
   createServerComponentClient<Database>({ cookies })
+);
+
+export const createActionSupabaseClient = cache(() =>
+  createServerActionClient<Database>({ cookies })
 );
 
 export async function getSession() {

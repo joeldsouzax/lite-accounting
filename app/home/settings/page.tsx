@@ -1,4 +1,7 @@
 // TODO: delete account option
+
+import DeleteUser from './delete-user';
+
 // TODO: delete can be a server action for now
 export default async function Settings() {
   return (
@@ -13,18 +16,7 @@ export default async function Settings() {
         className="px-4 md:px-2 container md:max-w-md"
         id="important-account-settings"
       >
-        <div id="account-delete-card" className="card shadow-md">
-          <div className="card-body">
-            <h2 className="card-title text-error">Delete account</h2>
-            <p>
-              Once you delete your account, there is no going back. Please be
-              certain.
-            </p>
-            <button className="btn btn-error btn-outline btn-sm" type="submit">
-              Delete your Account
-            </button>
-          </div>
-        </div>
+        <DeleteUser />
       </section>
     </>
   );
