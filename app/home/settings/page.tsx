@@ -1,9 +1,16 @@
-// TODO: delete account option
+/*
+ * Filename: /Users/joel/Code/start-up/lite-accounting/app/home/settings/page.tsx
+ * Path: /Users/joel/Code/start-up/lite-accounting
+ * Created Date: Monday, September 18th 2023, 9:09:22 pm
+ * Author: Joel Dsouza
+ *
+ * Copyright (c) 2023 Your Company
+ */
 
+// TODO: delete account option
 import DeleteUser from './delete-user';
 
 export const dynamic = 'force-dynamic';
-// TODO: add a modal before executing the delete option
 export default async function Settings() {
   return (
     <>
