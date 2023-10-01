@@ -2,7 +2,7 @@
 * COMPANY: holds company id and company code, its the account for which transactions are recorded
 **/
 create table companies(
-    id bigint generated always as identity,
+    id bigint generated always as identity primary key,
     created_at timestamp with time zone not null default now(),
     company_name text,
     company_code text,
