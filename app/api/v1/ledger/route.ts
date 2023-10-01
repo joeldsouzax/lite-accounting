@@ -7,7 +7,6 @@ import {
 import { ledger } from '@/lib/validations/ledger';
 import { NextRequest, NextResponse } from 'next/server';
 import { ZodError } from 'zod';
-import type { PostgrestError } from '@supabase/supabase-js';
 
 // TODO: unit test https://medium.com/@zachshallbetter/unit-test-next-js-api-routes-with-typescript-longer-version-a59ceb261b1f
 export async function POST(request: NextRequest) {
