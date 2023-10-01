@@ -11,6 +11,7 @@ export default function SignOut() {
     await supabase.auth.signOut();
     router.refresh();
   };
+
   return (
     <button onClick={handleSignOut}>
       <AiOutlineLogout />

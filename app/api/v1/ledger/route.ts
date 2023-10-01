@@ -1,6 +1,13 @@
+import { createRouteSupabaseClient } from '@/app/supabase-server';
+import {
+  UNAUTHENTICATED_OPERATION,
+  UNKNOWN_PROBLEM,
+  VALIDATION_FAILED,
+} from '@/constants';
 import { ledger } from '@/lib/validations/ledger';
 import { NextRequest, NextResponse } from 'next/server';
 import { ZodError } from 'zod';
+import type { PostgrestError } from '@supabase/supabase-js';
 
 // TODO: unit test https://medium.com/@zachshallbetter/unit-test-next-js-api-routes-with-typescript-longer-version-a59ceb261b1f
 export async function POST(request: NextRequest) {
@@ -14,16 +21,32 @@ export async function POST(request: NextRequest) {
     if (err instanceof ZodError) {
       return NextResponse.json(
         { error: err },
-        { status: 422, statusText: 'validation failed' }
+        { status: 422, statusText: VALIDATION_FAILED }
       );
     }
     return NextResponse.json({
       status: 400,
-      statusText: 'unknown problem encountered',
+      statusText: UNKNOWN_PROBLEM,
     });
   }
 }
 
+// TODO: get only the logged in users ledger
 export async function GET(request: NextRequest) {
-  return NextResponse.json({ ledger: 10 });
+  const supabase = createRouteSupabaseClient();
+  try {
+    const { data, error } = await supabase.from('ledgers').select();
+    if (error) {
+      throw error;
+    }
+    return NextResponse.json({ data });
+  } catch (err) {
+    return NextResponse.json(
+      { error: UNAUTHENTICATED_OPERATION },
+      {
+        status: 404,
+        statusText: UNAUTHENTICATED_OPERATION,
+      }
+    );
+  }
 }
