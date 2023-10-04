@@ -1,7 +1,6 @@
 'use client';
 
 import { useCurrentTheme } from '@/hooks';
-import { useTheme } from 'next-themes';
 import * as React from 'react';
 import { BsFillSunFill, BsFillMoonFill } from 'react-icons/bs';
 

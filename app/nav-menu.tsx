@@ -1,7 +1,7 @@
 import { createServerSupabaseClient } from '@/app/supabase-server';
 import Link from 'next/link';
 import * as React from 'react';
-import SignOut from './SignOut';
+import SignOut from './signout';
 import Image from 'next/image';
 import { FiSettings, FiHome } from 'react-icons/fi';
 

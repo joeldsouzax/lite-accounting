@@ -2,10 +2,10 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import Providers from './providers';
-import Logo from '@/components/Logo';
-import ThemeSelector from '@/components/ThemeSelector';
-import Footer from '@/components/Footer';
-import Authentication from '@/components/Authentication';
+import Logo from './logo';
+import ThemeSelector from './theme-selector';
+import Footer from './footer';
+import NavMenu from './nav-menu';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -38,7 +38,7 @@ export default async function RootLayout({
               </nav>
               <nav className="navbar-end flex gap-4">
                 <ThemeSelector />
-                <Authentication />
+                <NavMenu />
               </nav>
             </header>
           </div>
