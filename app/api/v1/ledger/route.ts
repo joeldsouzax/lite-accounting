@@ -34,11 +34,25 @@ export async function POST(request: NextRequest) {
 export async function GET(request: NextRequest) {
   const supabase = createRouteSupabaseClient();
   try {
-    const { data, error } = await supabase.from('ledgers').select();
+    const { data, count, error } = await supabase
+      .from('ledgers')
+      .select('*', { count: 'exact' });
+
     if (error) {
       throw error;
     }
-    return NextResponse.json({ data });
+
+    if (data === null) {
+      return NextResponse.json(
+        { data: [], count },
+        { status: 200, statusText: 'ledgers list' }
+      );
+    }
+
+    return NextResponse.json(
+      { data, count },
+      { status: 200, statusText: 'ledgers list' }
+    );
   } catch (err) {
     return NextResponse.json(
       { error: UNAUTHENTICATED_OPERATION },

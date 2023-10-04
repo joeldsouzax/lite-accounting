@@ -1,3 +1,5 @@
+import { SWRConfig } from 'swr';
+
 export default function HomeLayout({
   children,
 }: {
