@@ -31,6 +31,7 @@ const fetcher: Fetcher<GetLedgers> = async (url: string) => {
   return response.json();
 };
 
+// TODO: list of transactions :D
 const ListLedgers: FC = () => {
   const { data, isLoading, error } = useSWR('/api/v1/ledger', fetcher);
 
@@ -41,19 +42,19 @@ const ListLedgers: FC = () => {
       </div>
     );
 
+  // TODO: have a proper error message here
   if (error as Error) {
-    return (
-      <div className="alert alert-error">
-        <LuAlertTriangle size={24} />
-        <span>{error}</span>
-      </div>
-    );
+    return <LuAlertTriangle size={24} />;
+  }
+
+  if (data === undefined || data.count === 0) {
+    // TODO: ledger creation + transaction addition
+    // TODO: maybe graphql here
+    return <h1>show the ledger</h1>;
   }
 
   return (
-    <div className="prose">
-      {data?.data.map((leger) => <h1 key={leger.id}>{leger.year}</h1>)}
-    </div>
+    <div>{data?.data.map((leger) => <h1 key={leger.id}>{leger.year}</h1>)}</div>
   );
 };
 

@@ -36,9 +36,8 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 Domain
 
-- Account => Company (can be more than 1) each company has a ledger based on year
-- each ledger has transactions
-- each transactions has one or more entries
+- continous ledger
+- each company has lots of transactions
 
 
 
