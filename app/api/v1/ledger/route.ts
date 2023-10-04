@@ -42,6 +42,8 @@ export async function GET(request: NextRequest) {
       throw error;
     }
 
+    return NextResponse.json({}, { status: 400 });
+
     if (data === null) {
       return NextResponse.json(
         { data: [], count },
