@@ -17,7 +17,7 @@ alter table accounts enable row level security;
 create policy "users can read their own accounts" on accounts for select to authenticated using (auth.uid() = user_id);
 create policy "users can delete their own accounts" on accounts for delete to authenticated using (auth.uid() = users_id);
 create policy "users can update their own accounts" on accounts for update to authenticated using (auth.uid() = users_id);
-create policy "only authenticated users can insert" on accounts for inster to authenticated using (true);
+create policy "only authenticated users can insert" on accounts for insert to authenticated using (true);
 
 
 -- entries table which holds the basic atom transaction entry
@@ -32,8 +32,10 @@ create table entries(
     amount bigint not null check (amount > 0),
     name varchar(160) not null,
     description text,
+    company_id integer not null,
     credit integer not null,
     debit integer not null,
+    constraint entries_company_id_fkey foreign key (company_id) references public.companies(id) on delete cascade,
     constraint entries_credit_fkey foreign key (credit) references public.accounts(id) on delete restrict,
     constraint entries_debit_fkey foreign key (debit) references public.accounts(id) on delete restrict
     -- deletes are restricted because deleting an account with outstanding
@@ -42,3 +44,43 @@ create table entries(
     -- the account is responsible for the non zero balances of other accounts,
     -- so deleting it would lose important information.
 );
+
+-- enable row level security for entries table
+-- only users can do anything over this table
+-- if you roll out different roles pls take a look at this and update it https://supabase.com/docs/guides/auth/row-level-security
+alter table entries enable row level security;
+create policy "can view their companies transaction entries"
+    on entries
+    for select
+    to authenticated
+    using ( auth.uid() in (
+        select user_id in public.companies
+        where id = company_id
+    ));
+
+create policy "can update their companies transaction entries"
+    on entries
+    for update
+    to authenticated
+    using ( auth.uid() in (
+        select user_id in public.companies
+        where id = company_id
+    ));
+
+create policy "can delete their companies transaction entries"
+    on entries
+    for delete
+    to authenticated
+    using (auth.uid() in (
+        select user_id in public.companies
+        where id = company_id
+    ));
+
+create policy "only authenticated users can insert"
+    on entries
+    for insert
+    to authenticated
+    using (true);
+
+
+
