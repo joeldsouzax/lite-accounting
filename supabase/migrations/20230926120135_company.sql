@@ -5,16 +5,17 @@ create table companies(
     id bigint generated always as identity primary key,
     created_at timestamp with time zone not null default now(),
     updated_at timestamp with time zone,
-    name varchar(160) not null default "no name",
+    name varchar(160) not null default '',
     code text,
-    user uuid not null,
-    constraint companies_users_fkey foreign key (user) references auth.users(id) on delete cascade
+    user_id uuid not null,
+    constraint companies_user_id_fkey foreign key (user_id) references auth.users(id) on delete cascade
 );
 -- postgres rls policy over companies table
 alter table companies enable row level security;
-create policy "can view its own companies" on companies to autenticated for select using (auth.uid() = user);
-create policy "can update its own companies" on companies to autenticated for update using (auth.uid() = user);
-create policy "can insert a new company" on companies to autenticated for insert using (true);
+create policy user_companies
+    on companies
+    to authenticated
+    using (auth.uid() = user_id);
 
 /**
 * trigger automatically creates the first company when user signs in
@@ -22,7 +23,7 @@ create policy "can insert a new company" on companies to autenticated for insert
 create function public.handle_new_company()
 returns trigger as $$
 begin
-    insert into public.companies(user)
+    insert into public.companies(user_id)
     values (new.id);
     return new;
 end;

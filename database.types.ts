@@ -34,33 +34,140 @@ export interface Database {
   };
   public: {
     Tables: {
+      accounts: {
+        Row: {
+          account_code: number;
+          created_at: string;
+          description: string | null;
+          id: number;
+          name: string;
+          parent_account: number | null;
+          updated_at: string | null;
+          user_id: string | null;
+        };
+        Insert: {
+          account_code: number;
+          created_at?: string;
+          description?: string | null;
+          id?: never;
+          name: string;
+          parent_account?: number | null;
+          updated_at?: string | null;
+          user_id?: string | null;
+        };
+        Update: {
+          account_code?: number;
+          created_at?: string;
+          description?: string | null;
+          id?: never;
+          name?: string;
+          parent_account?: number | null;
+          updated_at?: string | null;
+          user_id?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'accounts_parent_account_fkey';
+            columns: ['parent_account'];
+            referencedRelation: 'accounts';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'accounts_user_id_fkey';
+            columns: ['user_id'];
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       companies: {
         Row: {
-          company_code: string | null;
-          company_name: string | null;
+          code: string | null;
           created_at: string;
           id: number;
+          name: string;
+          updated_at: string | null;
           user_id: string;
         };
         Insert: {
-          company_code?: string | null;
-          company_name?: string | null;
+          code?: string | null;
           created_at?: string;
           id?: never;
+          name?: string;
+          updated_at?: string | null;
           user_id: string;
         };
         Update: {
-          company_code?: string | null;
-          company_name?: string | null;
+          code?: string | null;
           created_at?: string;
           id?: never;
+          name?: string;
+          updated_at?: string | null;
           user_id?: string;
         };
         Relationships: [
           {
-            foreignKeyName: 'companies_users_fkey';
+            foreignKeyName: 'companies_user_id_fkey';
             columns: ['user_id'];
             referencedRelation: 'users';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      entries: {
+        Row: {
+          amount: number;
+          company_id: number;
+          created_at: string;
+          credit: number;
+          debit: number;
+          description: string | null;
+          id: number;
+          name: string;
+          transaction_date: string;
+          updated_at: string | null;
+        };
+        Insert: {
+          amount: number;
+          company_id: number;
+          created_at?: string;
+          credit: number;
+          debit: number;
+          description?: string | null;
+          id?: never;
+          name: string;
+          transaction_date?: string;
+          updated_at?: string | null;
+        };
+        Update: {
+          amount?: number;
+          company_id?: number;
+          created_at?: string;
+          credit?: number;
+          debit?: number;
+          description?: string | null;
+          id?: never;
+          name?: string;
+          transaction_date?: string;
+          updated_at?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'entries_company_id_fkey';
+            columns: ['company_id'];
+            referencedRelation: 'companies';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'entries_credit_fkey';
+            columns: ['credit'];
+            referencedRelation: 'accounts';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'entries_debit_fkey';
+            columns: ['debit'];
+            referencedRelation: 'accounts';
             referencedColumns: ['id'];
           },
         ];

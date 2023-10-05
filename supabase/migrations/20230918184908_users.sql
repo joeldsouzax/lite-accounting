@@ -4,7 +4,7 @@
 */
 create table users(
     -- UUID from auth.users
-    id uuid references auth.users not null primary key on delete cascade,
+    id uuid references auth.users on delete cascade not null primary key,
     full_name text,
     -- customer's billing address, stored in JSON format
     billing_address jsonb,
@@ -13,9 +13,9 @@ create table users(
 );
 -- postgres rls policy over users table
 alter table users enable row level security;
-create policy "Can view its own data." on users to autenticated for select using (auth.uid() = id);
-create policy "Can update its own data" on users to autenticated for update using (auth.uid() = id);
-create policy "Can delete its own data" on users to autenticated for delete using (auth.uid() = id);
+create policy "Can view its own data." on users for select to authenticated using (auth.uid() = id);
+create policy "Can update its own data" on users for update to authenticated using (auth.uid() = id);
+create policy "Can delete its own data" on users for delete to authenticated using (auth.uid() = id);
 
 
 /**

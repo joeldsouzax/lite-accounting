@@ -8,16 +8,15 @@ create table accounts(
     name varchar(160) not null,
     account_code integer not null,
     description text,
+    parent_account integer,
     user_id uuid,
-    constraint accounts_user_id_fkey foreign key (user_id) references auth.users(id) on delete cascade
+    constraint accounts_user_id_fkey foreign key (user_id) references auth.users(id) on delete cascade,
+    constraint accounts_parent_account_fkey foreign key (parent_account) references public.accounts(id) on delete restrict
 );
 
 -- enable row level security for accounts
 alter table accounts enable row level security;
-create policy "users can read their own accounts" on accounts for select to authenticated using (auth.uid() = user_id);
-create policy "users can delete their own accounts" on accounts for delete to authenticated using (auth.uid() = users_id);
-create policy "users can update their own accounts" on accounts for update to authenticated using (auth.uid() = users_id);
-create policy "only authenticated users can insert" on accounts for insert to authenticated using (true);
+create policy "account users" on accounts to authenticated using (auth.uid() = user_id);
 
 
 -- entries table which holds the basic atom transaction entry
@@ -49,40 +48,13 @@ create table entries(
 -- only users can do anything over this table
 -- if you roll out different roles pls take a look at this and update it https://supabase.com/docs/guides/auth/row-level-security
 alter table entries enable row level security;
-create policy "can view their companies transaction entries"
+create policy "user entries"
     on entries
-    for select
-    to authenticated
-    using ( auth.uid() in (
-        select user_id in public.companies
-        where id = company_id
-    ));
-
-create policy "can update their companies transaction entries"
-    on entries
-    for update
-    to authenticated
-    using ( auth.uid() in (
-        select user_id in public.companies
-        where id = company_id
-    ));
-
-create policy "can delete their companies transaction entries"
-    on entries
-    for delete
     to authenticated
     using (auth.uid() in (
-        select user_id in public.companies
+        select user_id from public.companies
         where id = company_id
     ));
-
-create policy "only authenticated users can insert"
-    on entries
-    for insert
-    to authenticated
-    using (true);
-
-
 -- create a trigger to update the updated_at column when an entry is updated
 create trigger handle_entry_updated_at
     before update on entries
