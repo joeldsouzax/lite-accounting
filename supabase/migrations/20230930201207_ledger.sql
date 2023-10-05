@@ -32,12 +32,7 @@ create policy "users can update their ledgers if it belongs to their company" on
     ));
 
 
--- enable moddatetime extension
-create extension if not exists moddatetime schema extensions;
 
--- this will set the 'updated_at' column on every update
-create trigger handle_ledgers_update_at before update on ledgers
-    for each row execute procedure moddatetime (update_at);
 
 
 -- trigger automatically creates the first ledger when the users sign up

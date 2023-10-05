@@ -83,4 +83,7 @@ create policy "only authenticated users can insert"
     using (true);
 
 
-
+-- create a trigger to update the updated_at column when an entry is updated
+create trigger handle_entry_updated_at
+    before update on entries
+    for each row execute procedure moddatetime (updated_at);
