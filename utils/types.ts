@@ -7,7 +7,3 @@ export type Enums<T extends keyof Database['public']['Enums']> =
 
 export type Account = Omit<Tables<'accounts'>, 'updated_at' | 'created_at'>;
 export type Accounts = Array<Account>;
-export interface GetAccounts {
-  accounts: Accounts;
-  count: number;
-}

@@ -7,13 +7,16 @@
  * Copyright (c) 2023 Your Company
  */
 'use client';
-import { FC } from 'react';
+import { FC, useEffect, useRef } from 'react';
 import useSWR, { Fetcher } from 'swr';
-import { GetAccounts } from '@/utils/types';
+import useSWRInfinite from 'swr/infinite';
+import { Accounts } from '@/utils/types';
 import AccountCard from './account-card';
 import { LuAlertTriangle } from 'react-icons/lu';
+import { useInfiniteScroll } from 'ahooks';
+import { PAGE_SIZE } from '@/constants';
 
-const fetcher: Fetcher<GetAccounts> = async (url: string) => {
+const fetcher: Fetcher<Accounts> = async (url: string) => {
   const response = await fetch(url);
 
   if (!response.ok) {
@@ -25,7 +28,15 @@ const fetcher: Fetcher<GetAccounts> = async (url: string) => {
 };
 
 const AccountsList: FC = () => {
-  const { data, isLoading, error } = useSWR('/api/v1/accounts', fetcher);
+  const { data, size, setSize, isValidating, isLoading, error } =
+    useSWRInfinite((index) => `/api/v1/accounts?page=${index}`, fetcher);
+
+  const isRefreshing = isValidating && data && data.length === size;
+  const isLoadingMore =
+    isLoading || (size > 0 && data && typeof data[size - 1] === 'undefined');
+  const isEmpty = data?.[0]?.length === 0;
+  const isReachingEnd =
+    isEmpty || (data && data[data.length - 1]?.length < PAGE_SIZE);
 
   if (isLoading)
     return (
@@ -34,14 +45,14 @@ const AccountsList: FC = () => {
       </div>
     );
 
-  if (error as Error) {
-    return (
-      <div className="alert alert-error">
-        <LuAlertTriangle size={24} />
-        <span>Could not fetch accounts list</span>
-      </div>
-    );
-  }
+  // if (error as Error) {
+  //   return (
+  //     <div className="alert alert-error">
+  //       <LuAlertTriangle size={24} />
+  //       <span>Could not fetch accounts list</span>
+  //     </div>
+  //   );
+  // }
 
   if (data === undefined) {
     return (
@@ -54,15 +65,30 @@ const AccountsList: FC = () => {
   }
 
   return (
-    <>
-      {data.accounts.map(({ user_id, ...account }) => (
-        <AccountCard
-          key={account.id}
-          {...account}
-          isStandard={user_id === null}
-        />
+    <div id="accounts-list" className="w-full">
+      {data.map((accounts, index) => (
+        <div key={index + accounts[0].id}>
+          {accounts.map(({ user_id, ...account }) => (
+            <AccountCard
+              {...account}
+              isStandard={user_id === null}
+              key={account.id}
+            />
+          ))}
+        </div>
       ))}
-    </>
+      <button
+        className="btn w-full"
+        disabled={isLoadingMore || isReachingEnd}
+        onClick={() => setSize(size + 1)}
+      >
+        {isLoadingMore ? (
+          <span className="loading loading-dots loading-sm"></span>
+        ) : (
+          'Load More'
+        )}
+      </button>
+    </div>
   );
 };
 

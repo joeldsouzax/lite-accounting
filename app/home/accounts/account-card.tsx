@@ -16,10 +16,7 @@ const AccountCard: FC<AccountCardProps> = ({
   return (
     <div className="card card-compact">
       <div className="card-body">
-        <h2 className="card-title">
-          {`${account_code} ${name}`}
-          {isStandard && <div className="badge badge-secondary">Standard</div>}
-        </h2>
+        <h2 className="card-title">{`${account_code} ${name}`}</h2>
         {description && <p>{description}</p>}
       </div>
     </div>
