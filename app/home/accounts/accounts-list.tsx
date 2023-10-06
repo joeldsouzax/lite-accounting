@@ -13,7 +13,8 @@ import useSWRInfinite from 'swr/infinite';
 import { Accounts } from '@/utils/types';
 import AccountCard from './account-card';
 import { LuAlertTriangle } from 'react-icons/lu';
-import { useInfiniteScroll } from 'ahooks';
+import { useScroll, useDebounceEffect } from 'ahooks';
+import { motion } from 'framer-motion';
 import { PAGE_SIZE } from '@/constants';
 
 const fetcher: Fetcher<Accounts> = async (url: string) => {
@@ -28,6 +29,7 @@ const fetcher: Fetcher<Accounts> = async (url: string) => {
 };
 
 const AccountsList: FC = () => {
+  const ref = useRef<HTMLDivElement>(null);
   const { data, size, setSize, isValidating, isLoading, error } =
     useSWRInfinite((index) => `/api/v1/accounts?page=${index}`, fetcher);
 
@@ -64,17 +66,24 @@ const AccountsList: FC = () => {
     );
   }
 
+  console.log('loading');
   return (
-    <div id="accounts-list" className="w-full">
+    <div id="accounts-list" className="w-full" ref={ref}>
       {data.map((accounts, index) => (
         <div key={index + accounts[0].id}>
-          {accounts.map(({ user_id, ...account }) => (
-            <AccountCard
-              {...account}
-              isStandard={user_id === null}
-              key={account.id}
-            />
-          ))}
+          {accounts.map(({ user_id, ...account }, i) => {
+            const recalculatedDelay =
+              i >= PAGE_SIZE * 2 ? (i - PAGE_SIZE * (size - 1)) / 15 : i / 15;
+
+            return (
+              <AccountCard
+                {...account}
+                isStandard={user_id === null}
+                key={account.id}
+                delay={recalculatedDelay}
+              />
+            );
+          })}
         </div>
       ))}
       <button

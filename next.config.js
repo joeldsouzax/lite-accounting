@@ -4,7 +4,7 @@ const nextConfig = {
     serverActions: true,
     typedRoutes: true,
   },
-  reactStrictMode: true,
+  reactStrictMode: false,
   images: {
     remotePatterns: [
       {
