@@ -8,14 +8,16 @@
  */
 'use client';
 import { FC, useEffect, useRef, useState } from 'react';
-import useSWR, { Fetcher } from 'swr';
+import { Fetcher } from 'swr';
 import useSWRInfinite from 'swr/infinite';
 import { Accounts } from '@/utils/types';
 import AccountCard from './account-card';
 import { LuAlertTriangle } from 'react-icons/lu';
 import { IoCheckmarkDoneCircleOutline } from 'react-icons/io5';
+import { BiCloudDownload } from 'react-icons/bi';
 import { debounce } from 'lodash';
 import { PAGE_SIZE } from '@/constants';
+import { motion } from 'framer-motion';
 
 const fetcher: Fetcher<Accounts> = async (url: string) => {
   const response = await fetch(url);
@@ -27,6 +29,9 @@ const fetcher: Fetcher<Accounts> = async (url: string) => {
 
   return response.json();
 };
+
+const getDelay = (i: number, size: number) =>
+  i >= PAGE_SIZE * 2 ? (i - PAGE_SIZE * (size - 1)) / 15 : i / 15;
 
 const AccountsList: FC = () => {
   const ref = useRef<HTMLDivElement>(null);
@@ -106,23 +111,40 @@ const AccountsList: FC = () => {
             </div>
           );
         return (
-          <div key={index + accounts[0].id}>
+          <div
+            key={index + accounts[0].id}
+            className="flex flex-col gap-4 w-full"
+          >
             {accounts.map(({ user_id, ...account }, i) => {
-              const recalculatedDelay =
-                i >= PAGE_SIZE * 2 ? (i - PAGE_SIZE * (size - 1)) / 15 : i / 15;
-
               return (
                 <AccountCard
                   {...account}
                   isStandard={user_id === null}
                   key={account.id}
-                  delay={recalculatedDelay}
+                  delay={getDelay(i, size)}
                 />
               );
             })}
           </div>
         );
       })}
+      {size < 2 && (
+        <motion.button
+          disabled={isLoadingMore || isReachingEnd}
+          className="btn w-full mt-4"
+          onClick={() => setSize(size + 1)}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: 0.4,
+            ease: [0.25, 0.25, 0, 1],
+            delay: getDelay(PAGE_SIZE + 1, size),
+          }}
+        >
+          <BiCloudDownload size={26} />
+          Load More
+        </motion.button>
+      )}
       {isLoadingMore && (
         <div className="w-full flex flex-col justify-center items-center">
           <span className="loading loading-dots loading-lg"></span>

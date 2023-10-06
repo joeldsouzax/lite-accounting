@@ -18,7 +18,7 @@ const AccountCard: FC<AccountCardProps> = ({
 }) => {
   return (
     <motion.div
-      className="card card-compact"
+      className="card card-compact shadow-sm"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{
