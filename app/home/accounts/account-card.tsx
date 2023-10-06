@@ -1,10 +1,9 @@
-import { Tables } from '@/utils/types';
+import { Account } from '@/utils/types';
 import { FC } from 'react';
 
 interface AccountCardProps
-  extends Pick<Tables<'accounts'>, 'account_code' | 'name' | 'id'> {
+  extends Pick<Account, 'account_code' | 'name' | 'id' | 'description'> {
   isStandard?: boolean;
-  description?: string;
 }
 
 const AccountCard: FC<AccountCardProps> = ({
@@ -15,13 +14,12 @@ const AccountCard: FC<AccountCardProps> = ({
   isStandard = false,
 }) => {
   return (
-    <div className="card card-compact shadow-md">
+    <div className="card card-compact">
       <div className="card-body">
         <h2 className="card-title">
-          {account_code}
+          {`${account_code} ${name}`}
           {isStandard && <div className="badge badge-secondary">Standard</div>}
         </h2>
-        <p>{name}</p>
         {description && <p>{description}</p>}
       </div>
     </div>

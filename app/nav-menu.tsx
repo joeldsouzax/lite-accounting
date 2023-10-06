@@ -7,6 +7,7 @@ import { FiSettings, FiHome } from 'react-icons/fi';
 import { RiAccountPinCircleLine } from 'react-icons/ri';
 
 //TODO: highlight the menu option when you are on that path
+export const dynamic = 'force-dynamic';
 export default async function Authentication() {
   const supabase = createServerSupabaseClient();
   const { data: user } = await supabase.auth.getUser();

@@ -17,6 +17,11 @@ create table accounts(
 -- enable row level security for accounts
 alter table accounts enable row level security;
 create policy "account users" on accounts to authenticated using (auth.uid() = user_id);
+create policy "users should be able to view accounts with no user id"
+    on accounts
+    for select
+    to authenticated
+    using (user_id is null);
 
 
 -- entries table which holds the basic atom transaction entry
