@@ -4,6 +4,7 @@ import * as React from 'react';
 import SignOut from './signout';
 import Image from 'next/image';
 import { FiSettings, FiHome } from 'react-icons/fi';
+import { RiAccountPinCircleLine } from 'react-icons/ri';
 
 //TODO: highlight the menu option when you are on that path
 export default async function Authentication() {
@@ -32,6 +33,12 @@ export default async function Authentication() {
               <Link href={'/home'}>
                 <FiHome />
                 Home
+              </Link>
+            </li>
+            <li>
+              <Link href="/home/accounts">
+                <RiAccountPinCircleLine />
+                Accounts
               </Link>
             </li>
             <li>

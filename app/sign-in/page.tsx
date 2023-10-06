@@ -8,7 +8,7 @@
  */
 import { getSession } from '../supabase-server';
 import { redirect } from 'next/navigation';
-import Auth from '@/components/common/Auth';
+import Auth from './auth';
 
 export const dynamic = 'force-dynamic';
 
