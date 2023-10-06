@@ -4,4 +4,4 @@ export const UNKNOWN_PROBLEM = 'unknown problem occured';
 export const VALIDATION_FAILED = 'validation failed';
 
 // api values
-export const PAGE_SIZE = 12;
+export const PAGE_SIZE = 20;
