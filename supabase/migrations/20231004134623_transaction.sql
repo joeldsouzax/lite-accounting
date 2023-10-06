@@ -49,6 +49,7 @@ create table entries(
     -- so deleting it would lose important information.
 );
 
+
 -- enable row level security for entries table
 -- only users can do anything over this table
 -- if you roll out different roles pls take a look at this and update it https://supabase.com/docs/guides/auth/row-level-security
@@ -64,3 +65,5 @@ create policy "user entries"
 create trigger handle_entry_updated_at
     before update on entries
     for each row execute procedure moddatetime (updated_at);
+
+

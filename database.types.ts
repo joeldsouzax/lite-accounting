@@ -172,43 +172,6 @@ export interface Database {
           }
         ]
       }
-      ledgers: {
-        Row: {
-          company_id: number
-          created_at: string
-          description: string | null
-          id: number
-          name: string | null
-          update_at: string | null
-          year: string
-        }
-        Insert: {
-          company_id: number
-          created_at?: string
-          description?: string | null
-          id?: never
-          name?: string | null
-          update_at?: string | null
-          year: string
-        }
-        Update: {
-          company_id?: number
-          created_at?: string
-          description?: string | null
-          id?: never
-          name?: string | null
-          update_at?: string | null
-          year?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "ledgers_company_id_fkey"
-            columns: ["company_id"]
-            referencedRelation: "companies"
-            referencedColumns: ["id"]
-          }
-        ]
-      }
       users: {
         Row: {
           billing_address: Json | null

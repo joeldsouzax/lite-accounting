@@ -16,6 +16,10 @@ const config: Config = {
     themes: ['dark', 'emerald'],
     darkTheme: 'dark',
   },
-  plugins: [require('@tailwindcss/typography'), require('daisyui')],
+  plugins: [
+    require('@tailwindcss/typography'),
+    require('daisyui'),
+    require('@tailwindcss/line-clamp'),
+  ],
 };
 export default config;

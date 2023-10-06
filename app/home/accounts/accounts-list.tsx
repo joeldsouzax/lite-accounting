@@ -101,7 +101,7 @@ const AccountsList: FC = () => {
   }
 
   return (
-    <div id="accounts-list" className="w-full" ref={ref}>
+    <div id="accounts-list" className="w-full flex flex-col gap-4" ref={ref}>
       {data.map((accounts, index) => {
         if (accounts.length < 1)
           return (
@@ -113,7 +113,7 @@ const AccountsList: FC = () => {
         return (
           <div
             key={index + accounts[0].id}
-            className="flex flex-col gap-4 w-full"
+            className="flex flex-col w-full gap-4"
           >
             {accounts.map(({ user_id, ...account }, i) => {
               return (
@@ -131,7 +131,7 @@ const AccountsList: FC = () => {
       {size < 2 && (
         <motion.button
           disabled={isLoadingMore || isReachingEnd}
-          className="btn w-full mt-4"
+          className="btn w-full mt-4 hidden md:block"
           onClick={() => setSize(size + 1)}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
