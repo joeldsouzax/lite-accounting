@@ -59,5 +59,14 @@ export const useInfiniteScroll = <Response extends object>(
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isInView, isReachingEnd]);
 
-  return { data, error, isLoading };
+  return {
+    data,
+    error,
+    isLoading,
+    ref,
+    size,
+    isLoadingMore,
+    isReachingEnd,
+    setSize,
+  };
 };

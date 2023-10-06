@@ -8,3 +8,6 @@ export const getURL = () => {
   url = url.charAt(url.length - 1) === '/' ? url : `${url}/`;
   return url;
 };
+
+export const getDelay = (i: number, size: number, pageSize: number) =>
+  i >= pageSize * 2 ? (i - pageSize * (size - 1)) / 15 : i / 15;

@@ -7,17 +7,17 @@
  * Copyright (c) 2023 Your Company
  */
 'use client';
-import { FC, useEffect, useRef, useState } from 'react';
+import { FC } from 'react';
 import { Fetcher } from 'swr';
-import useSWRInfinite from 'swr/infinite';
 import { Accounts } from '@/utils/types';
 import AccountCard from './account-card';
 import { LuAlertTriangle } from 'react-icons/lu';
 import { IoCheckmarkDoneCircleOutline } from 'react-icons/io5';
 import { BiCloudDownload } from 'react-icons/bi';
-import { debounce } from 'lodash';
 import { PAGE_SIZE } from '@/constants';
 import { motion } from 'framer-motion';
+import { useInfiniteScroll } from '@/hooks';
+import { getDelay } from '@/utils/helpers';
 
 const fetcher: Fetcher<Accounts> = async (url: string) => {
   const response = await fetch(url);
@@ -30,49 +30,17 @@ const fetcher: Fetcher<Accounts> = async (url: string) => {
   return response.json();
 };
 
-const getDelay = (i: number, size: number) =>
-  i >= PAGE_SIZE * 2 ? (i - PAGE_SIZE * (size - 1)) / 15 : i / 15;
-
 const AccountsList: FC = () => {
-  const ref = useRef<HTMLDivElement>(null);
-  const [isInView, setIsInView] = useState(false);
-  const { data, size, setSize, isLoading, error } = useSWRInfinite(
-    (index) => `/api/v1/accounts?page=${index}`,
-    fetcher,
-    {
-      revalidateFirstPage: false,
-    }
-  );
-
-  const isLoadingMore =
-    isLoading || (size > 0 && data && typeof data[size - 1] === 'undefined');
-  const isEmpty = data?.[0]?.length === 0;
-  const isReachingEnd =
-    isEmpty || (data && data[data.length - 1]?.length < PAGE_SIZE);
-
-  const handleScroll = () => {
-    if (ref.current && typeof window !== 'undefined') {
-      const container = ref.current;
-      const { bottom } = container.getBoundingClientRect();
-      const { innerHeight } = window;
-      setIsInView((prev) => bottom <= innerHeight);
-    }
-  };
-
-  useEffect(() => {
-    const handleDebouncedScroll = debounce(() => handleScroll(), 100);
-    window.addEventListener('scroll', handleDebouncedScroll);
-    return () => {
-      window.removeEventListener('scroll', handleDebouncedScroll);
-    };
-  }, [isReachingEnd]);
-
-  useEffect(() => {
-    if (isInView && !isReachingEnd) {
-      setSize(size + 1);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isInView, isReachingEnd]);
+  const {
+    data,
+    isLoading,
+    error,
+    ref,
+    size,
+    isLoadingMore,
+    isReachingEnd,
+    setSize,
+  } = useInfiniteScroll((index) => `/api/v1/accounts?page=${index}`, fetcher);
 
   if (isLoading)
     return (
@@ -121,7 +89,7 @@ const AccountsList: FC = () => {
                   {...account}
                   isStandard={user_id === null}
                   key={account.id}
-                  delay={getDelay(i, size)}
+                  delay={getDelay(i, size, PAGE_SIZE)}
                 />
               );
             })}
@@ -131,14 +99,14 @@ const AccountsList: FC = () => {
       {size < 2 && (
         <motion.button
           disabled={isLoadingMore || isReachingEnd}
-          className="btn w-full mt-4 hidden md:block"
+          className="btn btn-md btn-outline"
           onClick={() => setSize(size + 1)}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
             duration: 0.4,
             ease: [0.25, 0.25, 0, 1],
-            delay: getDelay(PAGE_SIZE + 1, size),
+            delay: getDelay(PAGE_SIZE + 1, size, PAGE_SIZE),
           }}
         >
           <BiCloudDownload size={26} />
