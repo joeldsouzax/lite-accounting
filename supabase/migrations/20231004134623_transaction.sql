@@ -24,6 +24,23 @@ create policy "users should be able to view accounts with no user id"
     using (user_id is null);
 
 
+-- enable full text search for accounts to make searching an account easier
+create extension pg_trgm;
+
+
+-- remote rpc call stored procedures
+-- update this to also include account_code as well
+create or replace function public.search_accounts(account_term varchar(160))
+returns setof public.accounts
+as $$
+begin
+    return query
+        select *
+        from public.accounts
+        where accounts.name ilike ('%' || account_term || '%');
+end;
+$$ language plpgsql; 
+
 -- entries table which holds the basic atom transaction entry
 -- amount uses bigint
 -- since we are only going to use one currency (nok) we do not need to store the magnifier for this currency
@@ -49,6 +66,9 @@ create table entries(
     -- so deleting it would lose important information.
 );
 
+create index on public.entries(credit);
+create index on public.entries(debit);
+create index on public.entries(company_id);
 
 -- enable row level security for entries table
 -- only users can do anything over this table
@@ -67,3 +87,7 @@ create trigger handle_entry_updated_at
     for each row execute procedure moddatetime (updated_at);
 
 
+
+-- TODO: make a view for each companies account ledger.
+-- TODO: make a materialized view for each companies account balance.
+-- TODO: make a materialized view for each compabies balance.

@@ -9,6 +9,7 @@
 
 import { NextPage } from 'next';
 import AccountsList from './accounts-list';
+import AccountSearch from './accounts-search';
 
 const Accounts: NextPage = () => {
   return (
@@ -16,7 +17,7 @@ const Accounts: NextPage = () => {
       className="px-4 md:px-2 container md:max-w-md"
       id="important-account-settings"
     >
-      <AccountsList />
+      <AccountSearch />
     </section>
   );
 };

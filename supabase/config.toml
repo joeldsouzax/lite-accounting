@@ -59,7 +59,7 @@ port = 54324
 # pop3_port = 54326
 
 [storage]
-enabled = true
+enabled = false
 # The maximum file size allowed (e.g. "5MB", "500KB").
 file_size_limit = "50MiB"
 
@@ -136,7 +136,7 @@ redirect_uri = ""
 
 
 [analytics]
-enabled = true
+enabled = false
 port = 54327
 vector_port = 54328
 # Configure one of the supported backends: `postgres`, `bigquery`.

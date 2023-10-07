@@ -11,13 +11,15 @@ export const GET = async (request: NextRequest) => {
   const { searchParams } = new URL(request.url);
   const supabase = createRouteSupabaseClient();
   const page = Number(searchParams.get('page')) ?? 0;
+  const account_term = String(searchParams.get('q')) ?? '';
   const from = page * PAGE_SIZE;
   const to = from + PAGE_SIZE - 1;
 
   try {
     const { data, error } = await supabase
-      .from('accounts')
-      .select('account_code, name, description, id, parent_account, user_id')
+      .rpc('search_accounts', {
+        account_term,
+      })
       .range(from, to);
 
     if (error) {

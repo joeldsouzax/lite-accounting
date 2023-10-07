@@ -205,7 +205,67 @@ export interface Database {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      gtrgm_compress: {
+        Args: {
+          "": unknown
+        }
+        Returns: unknown
+      }
+      gtrgm_decompress: {
+        Args: {
+          "": unknown
+        }
+        Returns: unknown
+      }
+      gtrgm_in: {
+        Args: {
+          "": unknown
+        }
+        Returns: unknown
+      }
+      gtrgm_options: {
+        Args: {
+          "": unknown
+        }
+        Returns: undefined
+      }
+      gtrgm_out: {
+        Args: {
+          "": unknown
+        }
+        Returns: unknown
+      }
+      search_accounts: {
+        Args: {
+          account_term: string
+        }
+        Returns: {
+          account_code: number
+          created_at: string
+          description: string | null
+          id: number
+          name: string
+          parent_account: number | null
+          updated_at: string | null
+          user_id: string | null
+        }[]
+      }
+      set_limit: {
+        Args: {
+          "": number
+        }
+        Returns: number
+      }
+      show_limit: {
+        Args: Record<PropertyKey, never>
+        Returns: number
+      }
+      show_trgm: {
+        Args: {
+          "": string
+        }
+        Returns: unknown
+      }
     }
     Enums: {
       [_ in never]: never

@@ -15,10 +15,23 @@ export const useCurrentTheme = () => {
   };
 };
 
+export interface InfiniteScrollReturn<Response extends object> {
+  data: Response[][] | undefined;
+  error: any;
+  isLoading: boolean;
+  ref: React.RefObject<HTMLDivElement>;
+  size: number;
+  isLoadingMore: boolean | undefined;
+  isReachingEnd: boolean | undefined;
+  setSize: (
+    size: number | ((_size: number) => number)
+  ) => Promise<Response[][] | undefined>;
+}
+
 export const useInfiniteScroll = <Response extends object>(
   getKey: SWRInfiniteKeyLoader,
   fetcher: Fetcher<Array<Response>>
-) => {
+): InfiniteScrollReturn<Response> => {
   const ref = React.useRef<HTMLDivElement>(null);
   const [isInView, setIsInView] = React.useState(false);
   const { data, size, setSize, isLoading, error } = useSWRInfinite(
