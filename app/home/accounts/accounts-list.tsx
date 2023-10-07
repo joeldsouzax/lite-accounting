@@ -7,7 +7,7 @@
  * Copyright (c) 2023 Your Company
  */
 'use client';
-import { FC, forwardRef } from 'react';
+import { forwardRef } from 'react';
 import { Account } from '@/utils/types';
 import AccountCard from './account-card';
 import { LuAlertTriangle } from 'react-icons/lu';
@@ -80,7 +80,7 @@ const AccountsList = forwardRef<
             </div>
           );
         })}
-        {size < 2 && (
+        {size < 2 && !isReachingEnd && (
           <motion.button
             disabled={isLoadingMore || isReachingEnd}
             className="btn btn-md btn-outline"

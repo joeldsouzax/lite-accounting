@@ -2,6 +2,9 @@ import { createRouteSupabaseClient } from '@/app/supabase-server';
 import { PAGE_SIZE, UNAUTHENTICATED_OPERATION } from '@/constants';
 import { NextRequest, NextResponse } from 'next/server';
 
+// TODO: orderby more balance
+// TODO: show most used
+// TODO: search account numbers
 /**
  * gets the continous list of accounts, page after page
  * @param request

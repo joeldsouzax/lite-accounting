@@ -8,7 +8,6 @@
  */
 
 import { NextPage } from 'next';
-import AccountsList from './accounts-list';
 import AccountSearch from './accounts-search';
 
 const Accounts: NextPage = () => {
