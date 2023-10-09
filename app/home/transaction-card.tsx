@@ -5,13 +5,13 @@ import { AiOutlineStar } from 'react-icons/ai';
 import { PiUserCirclePlusBold } from 'react-icons/pi';
 import Link from 'next/link';
 
-interface AccountCardProps
+interface TransactionCardProps
   extends Pick<Account, 'account_code' | 'name' | 'id' | 'description'> {
   isStandard?: boolean;
   delay?: number;
 }
 
-const AccountCard: FC<AccountCardProps> = ({
+const TransactionCard: FC<TransactionCardProps> = ({
   account_code,
   name,
   id,
@@ -21,7 +21,7 @@ const AccountCard: FC<AccountCardProps> = ({
 }) => {
   return (
     <motion.div
-      className="stats shadow"
+      className="stats border"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{
@@ -39,4 +39,4 @@ const AccountCard: FC<AccountCardProps> = ({
   );
 };
 
-export default AccountCard;
+export default TransactionCard;

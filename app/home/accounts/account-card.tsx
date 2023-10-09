@@ -21,7 +21,7 @@ const AccountCard: FC<AccountCardProps> = ({
 }) => {
   return (
     <motion.div
-      className="stats shadow"
+      className="stats border"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{

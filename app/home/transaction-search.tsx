@@ -11,14 +11,14 @@
 import { FC } from 'react';
 import { useInfiniteApi } from '@/hooks';
 import { Account } from '@/utils/types';
-import AccountsList from './accounts-list';
+import TransactionList from './transactions-list';
 
 const SEARCH_ACCOUNT_PLACEHOLDER = 'Search Accounts';
-const ACCOUNTS_API = '/api/v1/accounts';
+const TRANSACTIONS_API = '/api/v1/transactions';
 
-const AccountSearch: FC = () => {
+const TransactionSearch: FC = () => {
   const { ref, handleSearch, setSearchTerm, ...infiniteScrollProps } =
-    useInfiniteApi<Account>(ACCOUNTS_API);
+    useInfiniteApi<Account>(TRANSACTIONS_API);
 
   return (
     <div id="account-search" className="w-full flex flex-col gap-4">
@@ -27,9 +27,9 @@ const AccountSearch: FC = () => {
         onChange={handleSearch}
         placeholder={SEARCH_ACCOUNT_PLACEHOLDER}
       />
-      <AccountsList {...infiniteScrollProps} ref={ref} />
+      <TransactionList {...infiniteScrollProps} ref={ref} />
     </div>
   );
 };
 
-export default AccountSearch;
+export default TransactionSearch;

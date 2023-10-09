@@ -5,6 +5,7 @@ import { debounce } from 'lodash';
 import { PAGE_SIZE } from '@/constants';
 import type { Fetcher } from 'swr';
 import type { SWRInfiniteKeyLoader } from 'swr/infinite';
+import { useDebounce } from '@uidotdev/usehooks';
 
 export const useCurrentTheme = () => {
   const { systemTheme, theme, setTheme } = useTheme();
@@ -82,4 +83,36 @@ export const useInfiniteScroll = <Response extends object>(
     isReachingEnd,
     setSize,
   };
+};
+
+export const useDebouncedSearch = (initialSearchTerm: string = '') => {
+  const [searchTerm, setSearchTerm] = React.useState<string>('');
+  const debouncedSearchTerm = useDebounce(searchTerm, 300);
+
+  return { debouncedSearchTerm, setSearchTerm };
+};
+
+const fetcher = async (url: string) => {
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    const error = new Error(response.statusText);
+    throw error;
+  }
+
+  return response.json();
+};
+
+export const useInfiniteApi = <T extends object>(url: string) => {
+  const { debouncedSearchTerm, setSearchTerm } = useDebouncedSearch('');
+  const infiniteProps = useInfiniteScroll<T>(
+    (index) => `${url}?q=${debouncedSearchTerm}&page=${index}`,
+    fetcher
+  );
+
+  const handleSearch: React.ChangeEventHandler<HTMLInputElement> | undefined = (
+    e
+  ) => setSearchTerm(e.target.value);
+
+  return { setSearchTerm, handleSearch, ...infiniteProps };
 };
