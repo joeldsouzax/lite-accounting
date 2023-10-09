@@ -19,8 +19,15 @@ const TransactionCreate: FC = () => {
         <div className="stat-title">Current balance</div>
         <div className="stat-value">kr0</div>
         <div className="stat-actions">
-          <button className="btn btn-sm mr-2">Withdrawal</button>
-          <button className="btn btn-sm">deposit</button>
+          <label
+            htmlFor="transaction-withdrawal-modal"
+            className="btn btn-sm mr-2"
+          >
+            Withdrawal
+          </label>
+          <label htmlFor="deposit-withdrawal-modal" className="btn btn-sm mr-2">
+            Deposit
+          </label>
         </div>
       </div>
     </div>
