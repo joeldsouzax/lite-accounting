@@ -8,6 +8,7 @@
  */
 
 import { FC } from 'react';
+import { FaMoneyBillTransfer } from 'react-icons/fa6';
 
 const TransactionCreate: FC = () => {
   return (
@@ -19,14 +20,9 @@ const TransactionCreate: FC = () => {
         <div className="stat-title">Current balance</div>
         <div className="stat-value">kr0</div>
         <div className="stat-actions">
-          <label
-            htmlFor="transaction-withdrawal-modal"
-            className="btn btn-sm mr-2"
-          >
-            Withdrawal
-          </label>
-          <label htmlFor="deposit-withdrawal-modal" className="btn btn-sm mr-2">
-            Deposit
+          <label htmlFor="transaction-modal" className="btn btn-sm btn-outline">
+            <FaMoneyBillTransfer />
+            Transfer
           </label>
         </div>
       </div>

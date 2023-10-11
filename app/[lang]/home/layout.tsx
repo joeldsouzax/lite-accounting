@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import TransactionForm from './transaction-form';
 
 export default function HomeLayout({
   children,
@@ -12,14 +13,8 @@ export default function HomeLayout({
     >
       {children}
 
-      <TransactionModal name="transaction-withdrawal-modal">
-        <h3 className="text-lg font-bold">Withdrawal</h3>
-        <p className="py-4">This modal works with a hidden checkbox!</p>
-      </TransactionModal>
-
-      <TransactionModal name="deposit-withdrawal-modal">
-        <h3 className="text-lg font-bold">Deposit</h3>
-        <p className="py-4">This modal works with a hidden checkbox!</p>
+      <TransactionModal name="transaction-modal">
+        <TransactionForm />
       </TransactionModal>
     </main>
   );
@@ -34,7 +29,7 @@ const TransactionModal: FC<TransactionModalProps> = ({ children, name }) => {
   return (
     <>
       <input type="checkbox" id={name} name={name} className="modal-toggle" />
-      <div className="modal modal-bottom md:modal-top ">
+      <div className="modal modal-bottom md:modal-middle ">
         <div className="modal-box">
           <div className="px-4 md:px-2 container md:max-w-md mb-4 md:mb-6 transition-all ease-linear duration-100">
             {children}

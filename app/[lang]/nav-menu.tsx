@@ -43,7 +43,7 @@ export default async function Authentication() {
               </Link>
             </li>
             <li>
-              <Link href={'/home/settings'}>
+              <Link href={'home/settings'}>
                 <FiSettings />
                 Settings
               </Link>
