@@ -27,10 +27,6 @@ function getLocale(request: NextRequest): string | undefined {
     locales
   );
 
-  console.log(languages);
-  console.log(locales);
-  console.log(i18n.defaultLocale);
-
   const locale = match(languages, locales, i18n.defaultLocale);
 
   return locale;

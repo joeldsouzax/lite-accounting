@@ -37,7 +37,7 @@ export default async function Authentication() {
               </Link>
             </li>
             <li>
-              <Link href="/home/accounts">
+              <Link href="home/accounts">
                 <RiAccountPinCircleLine />
                 Accounts
               </Link>

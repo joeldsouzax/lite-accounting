@@ -1,1 +1,7 @@
-
+{
+  "landing": {
+    "title": "Regnskapsenkelhet!",
+    "hero": "Et lettvekts system for å spore transaksjoner, håndtere selskaper, og generere skatteklare rapporter.",
+    "call_to_action": "Start gratis!"
+  }
+}

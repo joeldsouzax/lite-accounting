@@ -6,6 +6,7 @@ import Logo from './logo';
 import ThemeSelector from './theme-selector';
 import Footer from './footer';
 import NavMenu from './nav-menu';
+import LocaleSelector from './locale-selector';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -36,6 +37,7 @@ export default async function RootLayout({
                 </a>
               </nav>
               <nav className="navbar-end flex gap-4">
+                <LocaleSelector />
                 <ThemeSelector />
                 <NavMenu />
               </nav>
