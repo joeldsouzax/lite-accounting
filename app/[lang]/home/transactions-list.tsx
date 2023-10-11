@@ -9,16 +9,16 @@
 'use client';
 import { forwardRef } from 'react';
 import { Account } from '@/utils/types';
-import AccountCard from './account-card';
+import TransactionCard from './transaction-card';
 import { LuAlertTriangle } from 'react-icons/lu';
 import { IoCheckmarkDoneCircleOutline } from 'react-icons/io5';
 import { BiCloudDownload } from 'react-icons/bi';
-import { PAGE_SIZE } from '@/constants';
+import { DEFAULT_PAGE_SIZE } from '@/constants';
 import { motion } from 'framer-motion';
 import { InfiniteScrollReturn } from '@/hooks';
 import { getDelay } from '@/utils/helpers';
 
-const AccountsList = forwardRef<
+const TransactionsList = forwardRef<
   HTMLDivElement,
   Omit<InfiniteScrollReturn<Account>, 'ref'>
 >(
@@ -69,11 +69,11 @@ const AccountsList = forwardRef<
             >
               {accounts.map(({ user_id, ...account }, i) => {
                 return (
-                  <AccountCard
+                  <TransactionCard
                     {...account}
                     isStandard={user_id === null}
                     key={account.id}
-                    delay={getDelay(i, size, PAGE_SIZE)}
+                    delay={getDelay(i, size, DEFAULT_PAGE_SIZE)}
                   />
                 );
               })}
@@ -90,7 +90,7 @@ const AccountsList = forwardRef<
             transition={{
               duration: 0.4,
               ease: [0.25, 0.25, 0, 1],
-              delay: getDelay(PAGE_SIZE + 1, size, PAGE_SIZE),
+              delay: getDelay(DEFAULT_PAGE_SIZE + 1, size, DEFAULT_PAGE_SIZE),
             }}
           >
             <BiCloudDownload size={26} />
@@ -107,6 +107,6 @@ const AccountsList = forwardRef<
   }
 );
 
-AccountsList.displayName = 'AccountsList';
+TransactionsList.displayName = 'TransactionsList';
 
-export default AccountsList;
+export default TransactionsList;
