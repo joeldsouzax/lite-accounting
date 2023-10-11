@@ -27,21 +27,24 @@ const LocaleSelector: FC = () => {
   };
 
   return (
-    <div className="dropdown">
-      <label tabIndex={0} className="label">{`${getFlagEmoji(
-        localeToFlag[currentLocale].flag
-      )}`}</label>
+    <div className="dropdown dropdown-end cursor-pointer">
+      <label tabIndex={0} className="label cursor-pointer">
+        {`${getFlagEmoji(localeToFlag[currentLocale].flag)}`}
+      </label>
       <ul
         tabIndex={0}
-        className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+        className="dropdown-content z-[1] menu-sm shadow p-2 bg-base-100 rounded-box w-32"
       >
         {i18n.locales
           .filter((locale) => locale !== currentLocale)
           .map((locale) => (
             <li key={locale} defaultValue={currentLocale} value={locale}>
-              <Link href={redirectPathName(locale)}>{`${getFlagEmoji(
-                localeToFlag[locale].flag
-              )}- ${localeToFlag[locale].name}`}</Link>
+              <Link
+                className="text-sm"
+                href={redirectPathName(locale)}
+              >{`${getFlagEmoji(localeToFlag[locale].flag)}- ${
+                localeToFlag[locale].name
+              }`}</Link>
             </li>
           ))}
       </ul>

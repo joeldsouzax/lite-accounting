@@ -36,7 +36,7 @@ export default async function RootLayout({
                   <Logo />
                 </a>
               </nav>
-              <nav className="navbar-end flex gap-4">
+              <nav className="navbar-end flex gap-3">
                 <LocaleSelector />
                 <ThemeSelector />
                 <NavMenu />
