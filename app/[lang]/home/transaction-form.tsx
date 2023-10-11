@@ -8,9 +8,14 @@
  */
 
 import { FC } from 'react';
+import AccountSelect from './accounts/account-select';
 
 const TransactionForm: FC = () => {
-  return <div>Hello</div>;
+  return (
+    <form className="flex flex-col w-full gap-4">
+      <AccountSelect />
+    </form>
+  );
 };
 
 export default TransactionForm;
