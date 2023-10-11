@@ -39,7 +39,12 @@ begin
         from public.accounts
         where accounts.name ilike ('%' || account_term || '%');
 end;
-$$ language plpgsql; 
+$$ language plpgsql;
+
+
+/**
+* ENTRIES
+*/
 
 -- entries table which holds the basic atom transaction entry
 -- amount uses bigint

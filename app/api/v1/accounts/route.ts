@@ -1,5 +1,5 @@
 import { createRouteSupabaseClient } from '@/app/supabase-server';
-import { PAGE_SIZE, UNAUTHENTICATED_OPERATION } from '@/constants';
+import { DEFAULT_PAGE_SIZE, UNAUTHENTICATED_OPERATION } from '@/constants';
 import { NextRequest, NextResponse } from 'next/server';
 
 // TODO: orderby more balance
@@ -14,9 +14,10 @@ export const GET = async (request: NextRequest) => {
   const { searchParams } = new URL(request.url);
   const supabase = createRouteSupabaseClient();
   const page = Number(searchParams.get('page')) ?? 0;
+  const size = Number(searchParams.get('size')) ?? DEFAULT_PAGE_SIZE;
   const account_term = String(searchParams.get('q')) ?? '';
-  const from = page * PAGE_SIZE;
-  const to = from + PAGE_SIZE - 1;
+  const from = page * size;
+  const to = from + size - 1;
 
   try {
     const { data, error } = await supabase

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useTheme } from 'next-themes';
 import useSWRInfinite from 'swr/infinite';
 import { debounce } from 'lodash';
-import { PAGE_SIZE } from '@/constants';
+import { DEFAULT_PAGE_SIZE } from '@/constants';
 import type { Fetcher } from 'swr';
 import type { SWRInfiniteKeyLoader } from 'swr/infinite';
 import { useDebounce } from '@uidotdev/usehooks';
@@ -47,7 +47,7 @@ export const useInfiniteScroll = <Response extends object>(
     isLoading || (size > 0 && data && typeof data[size - 1] === 'undefined');
   const isEmpty = data?.[0]?.length === 0;
   const isReachingEnd =
-    isEmpty || (data && data[data.length - 1]?.length < PAGE_SIZE);
+    isEmpty || (data && data[data.length - 1]?.length < DEFAULT_PAGE_SIZE);
 
   const handleScroll = () => {
     if (ref.current && typeof window !== 'undefined') {
@@ -103,10 +103,13 @@ const fetcher = async (url: string) => {
   return response.json();
 };
 
-export const useInfiniteApi = <T extends object>(url: string) => {
+export const useInfiniteApi = <T extends object>(
+  url: string,
+  size: number = DEFAULT_PAGE_SIZE
+) => {
   const { debouncedSearchTerm, setSearchTerm } = useDebouncedSearch('');
   const infiniteProps = useInfiniteScroll<T>(
-    (index) => `${url}?q=${debouncedSearchTerm}&page=${index}`,
+    (index) => `${url}?q=${debouncedSearchTerm}&page=${index}&size=${size}`,
     fetcher
   );
 
