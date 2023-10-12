@@ -34,10 +34,12 @@ const TransactionModal: FC<TransactionModalProps> = ({ children, name }) => {
           <div className="px-4 md:px-2 container md:max-w-md mb-4 md:mb-6 transition-all ease-linear duration-100">
             {children}
           </div>
+          <div className="modal-action">
+            <label htmlFor={name} className="btn">
+              Close!
+            </label>
+          </div>
         </div>
-        <label className="modal-backdrop" htmlFor={name}>
-          Close
-        </label>
       </div>
     </>
   );
