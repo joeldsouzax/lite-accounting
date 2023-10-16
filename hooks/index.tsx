@@ -3,9 +3,10 @@ import { useTheme } from 'next-themes';
 import useSWRInfinite from 'swr/infinite';
 import { debounce } from 'lodash';
 import { DEFAULT_PAGE_SIZE } from '@/constants';
-import type { Fetcher } from 'swr';
+import type { Fetcher, Key } from 'swr';
 import type { SWRInfiniteKeyLoader } from 'swr/infinite';
 import { useDebounce } from '@uidotdev/usehooks';
+import useSWR from 'swr';
 
 export const useCurrentTheme = () => {
   const { systemTheme, theme, setTheme } = useTheme();
@@ -118,4 +119,28 @@ export const useInfiniteApi = <T extends object>(
   ) => setSearchTerm(e.target.value);
 
   return { setSearchTerm, handleSearch, ...infiniteProps };
+};
+
+export const useFetch = <Response extends any>(url: () => string) => {
+  const { data, error, isLoading } = useSWR<Response, any, () => string>(
+    url,
+    fetcher
+  );
+  return {
+    data,
+    error,
+    isLoading,
+  };
+};
+
+export const useSearchFetch = <Response extends any>(url: string) => {
+  const { debouncedSearchTerm, setSearchTerm } = useDebouncedSearch('');
+  const props = useFetch<Response>(
+    () => `${url}?q=${debouncedSearchTerm}&page=${0}&size=${20}`
+  );
+
+  const handleSearch: React.ChangeEventHandler<HTMLInputElement> | undefined = (
+    e
+  ) => setSearchTerm(e.target.value);
+  return { setSearchTerm, handleSearch, ...props };
 };

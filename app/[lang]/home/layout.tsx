@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import TransactionForm from './transaction-form';
+import { AiOutlineClose } from 'react-icons/ai';
 
 export default function HomeLayout({
   children,
@@ -29,14 +30,17 @@ const TransactionModal: FC<TransactionModalProps> = ({ children, name }) => {
   return (
     <>
       <input type="checkbox" id={name} name={name} className="modal-toggle" />
-      <div className="modal modal-bottom md:modal-middle ">
+      <div className="modal modal-bottom md:modal-middle h-3/4">
         <div className="modal-box">
-          <div className="px-4 md:px-2 container md:max-w-md mb-4 md:mb-6 transition-all ease-linear duration-100">
+          <div className="container md:max-w-md transition-all ease-linear duration-100">
             {children}
           </div>
           <div className="modal-action">
-            <label htmlFor={name} className="btn">
-              Close!
+            <label
+              htmlFor={name}
+              className="btn btn-outline btn-sm btn-error w-full"
+            >
+              Close
             </label>
           </div>
         </div>

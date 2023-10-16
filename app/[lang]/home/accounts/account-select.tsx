@@ -10,61 +10,118 @@
 'use client';
 
 import { FC } from 'react';
-import { useInfiniteApi } from '@/hooks';
+import { useSearchFetch } from '@/hooks';
 import { Account } from '@/utils/types';
-import { ACCOUNTS_API, SEARCH_ACCOUNT_PLACEHOLDER } from '@/constants';
+import { ACCOUNTS_API } from '@/constants';
+import AsyncSelect from 'react-select/async';
+import { components, DropdownIndicatorProps } from 'react-select';
+import {} from 'react-icons/';
+import clsx from 'clsx';
 
-interface AccountSelectProps {}
+interface AccountSelectProps {
+  placeholder: string;
+  name: string;
+  account?: Account;
+  focus: 'primary' | 'secondary';
+}
 
-const AccountSelect: FC<AccountSelectProps> = ({}) => {
-  const {
-    ref,
-    handleSearch,
-    setSearchTerm,
-    data,
-    isLoading,
-    error,
-    size,
-    isLoadingMore,
-    isReachingEnd,
-    setSize,
-  } = useInfiniteApi<Account>(ACCOUNTS_API);
+const placeholderStyles = 'text-gray-500';
+const singleValueStyles = 'leading-7 ml-1';
+const clearIndicatorStyles = 'btn btn-sm btn-ghost';
+const dropdownIndicatorStyles = 'btn btn-sm btn-ghost';
+const menuStyles = 'menu bg-base-200 rounded-box';
+const groupHeadingStyles = 'text-label';
+const optionStyles = {
+  base: 'hover:cursor-pointer px-3 py-2 rounded',
+  focus: 'bg-gray-100 active:bg-gray-200',
+  selected:
+    "after:content-['✔'] after:ml-2 after:text-green-500 text-gray-500",
+};
+const noOptionsMessageStyles =
+  'p-2 border border-dashed border-secondary rounded-sm';
 
-  if (data === undefined) return <h1>NO accounts</h1>;
+const AccountSelect: FC<AccountSelectProps> = ({
+  placeholder,
+  name,
+  focus = 'primary',
+  account = null,
+}) => {
+  const controlStyles = {
+    base: 'input input-bordered',
+    focus: clsx(
+      focus === 'primary'
+        ? 'border-primary ring-primary'
+        : 'border-secondary ring-secondary',
+      'ring-1'
+    ),
+    nonFocus: 'border-gray-300 hover:border-gray-400',
+  };
+  const { data, error, isLoading, setSearchTerm } =
+    useSearchFetch<Account[]>(ACCOUNTS_API);
+
+  const getAccounts = () => {
+    if (!data) return [{}];
+    return data.map((account) => ({
+      label: `${account.account_code} - ${account.name}`,
+      value: `${account.id}`,
+    }));
+  };
 
   return (
-    <div className="dropdown dropdown-hover">
-      <input
-        tabIndex={0}
-        className="input input-bordered w-full"
-        onChange={handleSearch}
-        placeholder={SEARCH_ACCOUNT_PLACEHOLDER}
-      />
-      <div
-        ref={ref}
-        tabIndex={0}
-        className="dropdown-conten z-[1] menu p-2 shadow bg-base-100 rounded-box w-full h-32"
-      >
-        {data.map((accounts, index) => {
-          if (accounts.length < 1)
-            return (
-              <div className="alert" key="no-more-account">
-                <span>no more accounts available</span>
-              </div>
-            );
-          return (
-            <div
-              key={index + accounts[0].id}
-              className="flex flex-col w-full gap-4"
-            >
-              {accounts.map(({ user_id, ...account }, i) => {
-                return <div key={account.id}>{account.account_code}</div>;
-              })}
-            </div>
-          );
-        })}
-      </div>
-    </div>
+    <AsyncSelect
+      isClearable
+      unstyled
+      isSearchable
+      cacheOptions
+      defaultOptions={getAccounts()}
+      closeMenuOnSelect
+      hideSelectedOptions
+      isLoading={data === undefined || isLoading}
+      loadOptions={async (inputSearchValue) => {
+        setSearchTerm(inputSearchValue);
+        return getAccounts();
+      }}
+      styles={{
+        input: (base) => ({
+          ...base,
+          'input:focus': {
+            boxShadow: 'none',
+          },
+        }),
+        // On mobile, the label will truncate automatically, so we want to
+        // override that behaviour.
+        multiValueLabel: (base) => ({
+          ...base,
+          whiteSpace: 'normal',
+          overflow: 'visible',
+        }),
+        control: (base) => ({
+          ...base,
+          transition: 'none',
+        }),
+      }}
+      classNames={{
+        control: ({ isFocused }) =>
+          clsx(
+            isFocused ? controlStyles.focus : controlStyles.nonFocus,
+            controlStyles.base
+          ),
+        placeholder: () => placeholderStyles,
+        singleValue: () => singleValueStyles,
+        clearIndicator: () => clearIndicatorStyles,
+        dropdownIndicator: () => dropdownIndicatorStyles,
+        menu: () => menuStyles,
+        groupHeading: () => groupHeadingStyles,
+        option: ({ isFocused, isSelected }) =>
+          clsx(
+            isFocused && optionStyles.focus,
+            isSelected && optionStyles.selected,
+            optionStyles.base
+          ),
+        noOptionsMessage: () => noOptionsMessageStyles,
+      }}
+      onChange={(props) => console.log(props)}
+    />
   );
 };
 

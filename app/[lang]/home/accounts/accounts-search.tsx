@@ -17,7 +17,7 @@ const SEARCH_ACCOUNT_PLACEHOLDER = 'Search Accounts';
 const ACCOUNTS_API = '/api/v1/accounts';
 
 const AccountSearch: FC = () => {
-  const { ref, handleSearch, setSearchTerm, ...infiniteScrollProps } =
+  const { ref, handleSearch, ...infiniteScrollProps } =
     useInfiniteApi<Account>(ACCOUNTS_API);
 
   return (
